@@ -77,7 +77,7 @@ const navigate = useNavigate();
           </a>
 
           <a
-            href="https://github.com"
+            href="https://github.com/ISHANPREET-1/signal-engine"
             target="_blank"
             rel="noreferrer"
           >

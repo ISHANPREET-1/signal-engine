@@ -64,9 +64,17 @@ export default function Hero() {
               </button>
             </BorderGlow>
 
-            <button className={styles.secondary}>
-              GitHub
-            </button>
+          <button
+  className={styles.secondary}
+  onClick={() =>
+    window.open(
+      "https://github.com/ISHANPREET-1/signal-engine",
+      "_blank"
+    )
+  }
+>
+  GitHub
+</button>
 
           </div>
 
