@@ -1,0 +1,181 @@
+.outreachPanel{
+
+    position:sticky;
+
+    top:32px;
+
+    height:calc(100vh - 120px);
+
+    max-height:980px;
+
+    overflow-y:auto;
+
+    background:#171717;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:8px;
+
+    padding:40px;
+
+}
+
+.outreachPanel::-webkit-scrollbar{
+
+    width:8px;
+
+}
+
+.outreachPanel::-webkit-scrollbar-track{
+
+    background:transparent;
+
+}
+
+.outreachPanel::-webkit-scrollbar-thumb{
+
+    background:#3d3d3d;
+
+    border-radius:999px;
+
+}
+
+.outreachPanel::-webkit-scrollbar-thumb:hover{
+
+    background:#666666;
+
+}
+
+.outreachHeader{
+
+    margin-bottom:36px;
+
+}
+
+.outreachHeader h2{
+
+    margin:0 0 8px;
+
+    font-size:32px;
+
+    font-weight:700;
+
+    color:white;
+
+}
+
+.outreachHeader p{
+
+    margin:0;
+
+    color:#888888;
+
+    font-size:15px;
+
+    line-height:1.6;
+
+}
+
+.outreachBlock{
+
+    margin-bottom:32px;
+
+}
+
+.outreachBlock:last-child{
+
+    margin-bottom:0;
+
+}
+
+.blockHeader{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:12px;
+
+}
+
+.blockHeader h3{
+
+    margin:0;
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:700;
+
+}
+
+.blockHeader button{
+
+    background:#7A1124;
+
+    color:white;
+
+    border:none;
+
+    border-radius:6px;
+
+    padding:10px 22px;
+
+    cursor:pointer;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    transition:.25s;
+
+}
+
+.blockHeader button:hover{
+
+    background:#9B1730;
+
+}
+
+.blockBody{
+
+    background:#0E0E0E;
+
+    border:1px solid rgba(255,255,255,.06);
+
+    border-radius:6px;
+
+    padding:20px;
+
+    color:#E0E0E0;
+
+    line-height:1.7;
+
+    font-size:15px;
+
+    white-space:pre-wrap;
+
+}
+
+@media(max-width:1200px){
+
+    .outreachPanel{
+
+        position:relative;
+
+        top:0;
+
+        height:auto;
+
+        max-height:none;
+
+        overflow:visible;
+
+        margin-top:40px;
+
+    }
+
+}

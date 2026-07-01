@@ -1,0 +1,102 @@
+.statsGrid{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:20px;
+
+    margin-bottom:40px;
+
+}
+
+.statCard{
+
+    background:#171717;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:8px;
+
+    padding:28px 24px;
+
+    min-height:140px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:space-between;
+
+    cursor:pointer;
+
+    transition:
+        transform .25s ease,
+        border-color .25s ease,
+        box-shadow .25s ease;
+
+}
+
+.statCard:hover{
+
+    transform:translateY(-3px);
+
+    border-color:#7A1124;
+
+    box-shadow:
+        0 0 0 1px #7A1124,
+        0 12px 30px rgba(0,0,0,.35);
+
+}
+
+.activeStat{
+
+    border-color:#7A1124;
+
+    box-shadow:
+        0 0 0 1px #7A1124,
+        0 12px 30px rgba(0,0,0,.35);
+
+}
+
+.statHeading{
+
+    color:#888888;
+
+    font-size:14px;
+
+    font-weight:500;
+
+}
+
+.statValue{
+
+    color:white;
+
+    font-size:48px;
+
+    font-weight:700;
+
+    line-height:1;
+
+}
+
+@media(max-width:1200px){
+
+    .statsGrid{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .statsGrid{
+
+        grid-template-columns:1fr;
+
+    }
+
+}

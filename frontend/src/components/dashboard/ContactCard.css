@@ -1,0 +1,155 @@
+.contactCard{
+
+    background:#171717;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:8px;
+
+    padding:32px;
+
+    margin-top:24px;
+
+}
+
+.contactHeader{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:16px;
+
+    margin-bottom:24px;
+
+}
+
+.avatar{
+
+    width:56px;
+
+    height:56px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:#7A1124;
+
+    color:white;
+
+    font-size:20px;
+
+    font-weight:700;
+
+    flex-shrink:0;
+
+}
+
+.contactHeader h2{
+
+    margin:0;
+
+    color:white;
+
+    font-size:24px;
+
+    font-weight:700;
+
+}
+
+.contactInfo h3{
+
+    margin:0 0 6px;
+
+    color:white;
+
+    font-size:32px;
+
+    font-weight:700;
+
+}
+
+.role{
+
+    color:#888888;
+
+    font-size:16px;
+
+    margin-bottom:18px;
+
+}
+
+.contactInfo a{
+
+    display:block;
+
+    color:#C7C7C7;
+
+    text-decoration:none;
+
+    font-size:16px;
+
+    margin-bottom:18px;
+
+    transition:.25s;
+
+}
+
+.contactInfo a:hover{
+
+    color:#ff8a8a;
+
+}
+
+.confidence{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    padding:8px 18px;
+
+    border-radius:999px;
+
+    background:rgba(122,17,36,.15);
+
+    border:1px solid #7A1124;
+
+    color:#ff8a8a;
+
+    font-size:14px;
+
+    font-weight:600;
+
+}
+
+@media(max-width:768px){
+
+    .avatar{
+
+        width:44px;
+
+        height:44px;
+
+        font-size:16px;
+
+    }
+
+    .contactHeader h2{
+
+        font-size:20px;
+
+    }
+
+    .contactInfo h3{
+
+        font-size:26px;
+
+    }
+
+}

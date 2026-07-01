@@ -1,0 +1,141 @@
+.timelineCard{
+
+    background:#171717;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:8px;
+
+    padding:28px;
+
+    margin-bottom:40px;
+
+}
+
+.timelineHeader{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-start;
+
+    margin-bottom:28px;
+
+}
+
+.timelineHeader h2{
+
+    margin:0;
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:700;
+
+}
+
+.timelineHeader p{
+
+    margin-top:4px;
+
+    color:#666666;
+
+    font-size:13px;
+
+}
+
+.timelineBadge{
+
+    background:#1E1E1E;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    color:#C7C7C7;
+
+    padding:8px 18px;
+
+    border-radius:999px;
+
+    font-size:13px;
+
+}
+
+.timelineGraph{
+
+    position:relative;
+
+    height:220px;
+
+    border-radius:8px;
+
+    overflow:hidden;
+
+}
+
+.gridLine{
+
+    position:absolute;
+
+    left:0;
+
+    width:100%;
+
+    height:1px;
+
+    background:rgba(255,255,255,.05);
+
+}
+
+.gridLine:nth-child(1){
+
+    top:20%;
+
+}
+
+.gridLine:nth-child(2){
+
+    top:40%;
+
+}
+
+.gridLine:nth-child(3){
+
+    top:60%;
+
+}
+
+.gridLine:nth-child(4){
+
+    top:80%;
+
+}
+
+.graphSvg{
+
+    width:100%;
+
+    height:180px;
+
+}
+
+.timelineLabels{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-top:12px;
+
+    color:#666666;
+
+    font-size:12px;
+
+}
+
+.timelineGraph:hover path{
+
+    filter:drop-shadow(0 0 10px rgba(167,26,52,.45));
+
+}

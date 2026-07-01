@@ -1,0 +1,84 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+
+:root {
+  /* Backgrounds */
+  --bg-primary: #090909;
+  --bg-secondary: #111111;
+  --bg-card: #171717;
+  --bg-elevated: #1D1D1D;
+
+  /* Brand */
+  --accent: #7A1124;
+  --accent-hover: #9B1730;
+  --accent-active: #B21E3A;
+  --accent-glow: rgba(178, 30, 58, 0.35);
+
+  /* Text */
+  --text-primary: #FFFFFF;
+  --text-secondary: #C7C7C7;
+  --text-muted: #8A8A8A;
+  --text-placeholder: #666666;
+
+  /* Status */
+  --success: #22C55E;
+  --warning: #F59E0B;
+  --news: #3B82F6;
+  --danger: #EF4444;
+
+  /* Borders */
+  --border: rgba(255,255,255,.08);
+  --divider: rgba(255,255,255,.06);
+
+  /* Radius */
+  --radius-card: 22px;
+  --radius-button: 16px;
+  --radius-input: 14px;
+  --radius-pill: 999px;
+
+  /* Shadows */
+  --shadow-soft: 0 8px 30px rgba(0,0,0,.35);
+  --shadow-glow: 0 0 40px rgba(178,30,58,.15);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+  background: var(--bg-primary);
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}

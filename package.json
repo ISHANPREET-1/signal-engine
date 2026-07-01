@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "framer-motion": "^12.42.0",
+    "mathjs": "^15.2.0",
+    "recharts": "^3.9.1"
+  }
+}
