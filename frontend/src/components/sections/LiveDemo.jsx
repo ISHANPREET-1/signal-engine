@@ -56,60 +56,33 @@ export default function LiveDemo() {
         </p>
 
         <div
-  style={{
-    height: "560px",
-    borderRadius: "28px",
-    border: "1px solid rgba(255,255,255,.08)",
-    background: "linear-gradient(180deg,#181818,#121212)",
-    boxShadow: "0 20px 60px rgba(0,0,0,.45)",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: "24px",
-  }}
->
-  <div
-    style={{
-      width: "90px",
-      height: "90px",
-      borderRadius: "50%",
-      background: "rgba(158,29,55,.18)",
-      border: "1px solid rgba(158,29,55,.35)",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      fontSize: "34px",
-      color: "#fff",
-    }}
-  >
-    ▶️
-  </div>
-
-  <h3
-    style={{
-      color: "#fff",
-      fontSize: "28px",
-      margin: 0,
-    }}
-  >
-    Product Walkthrough
-  </h3>
-
-  <p
-    style={{
-      color: "#8F8F8F",
-      maxWidth: "500px",
-      textAlign: "center",
-      lineHeight: 1.7,
-      margin: 0,
-    }}
-  >
-    A complete walkthrough showing Signal Engine discovering buying
-    signals, identifying decision makers and generating personalized
-    outreach in real time.
-  </p>
-</div>
+          style={{
+            borderRadius: "28px",
+            border: "1px solid rgba(255,255,255,.08)",
+            background: "linear-gradient(180deg,#181818,#121212)",
+            boxShadow: "0 20px 60px rgba(0,0,0,.45)",
+            overflow: "hidden",
+          }}
+        >
+          <video
+            controls
+            autoPlay
+            muted
+            loop
+            playsInline
+            style={{
+              display: "block",
+              width: "100%",
+              height: "100%",
+            }}
+          >
+            <source
+              src="/videos/signal-engine-demo.mp4"
+              type="video/mp4"
+            />
+            Your browser does not support the video tag.
+          </video>
+        </div>
       </div>
     </section>
   );

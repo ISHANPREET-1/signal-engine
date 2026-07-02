@@ -85,50 +85,6 @@ export default function HowItWorks() {
           ))}
         </div>
 
-        {/* Product Demo */}
-        <div
-          style={{
-            marginTop: "5rem",
-            textAlign: "center",
-          }}
-        >
-          <h3
-            style={{
-              fontSize: "2rem",
-              fontWeight: 700,
-              marginBottom: "1rem",
-            }}
-          >
-            Watch Signal Engine in Action
-          </h3>
-
-          <p
-            style={{
-              color: "#9ca3af",
-              marginBottom: "2rem",
-            }}
-          >
-            See the complete GTM intelligence workflow in under 2 minutes.
-          </p>
-
-          <video
-            controls
-            style={{
-              width: "100%",
-              maxWidth: "1000px",
-              borderRadius: "16px",
-              border: "1px solid rgba(255,255,255,0.08)",
-              boxShadow: "0 20px 50px rgba(0,0,0,0.4)",
-            }}
-          >
-            <source
-  src="/videos/signal-engine-demo.mp4"
-  type="video/mp4"
-/>
-            Your browser does not support the video tag.
-          </video>
-        </div>
-
       </div>
     </section>
   );
