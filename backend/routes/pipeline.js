@@ -99,6 +99,11 @@ router.post('/run-pipeline', async (req, res) => {
       .sort((a, b) => (a.category === 'Other' ? 1 : 0) - (b.category === 'Other' ? 1 : 0))
       .slice(0, 3);
 
+    // No classified category actually scored anything — every fetched signal
+    // was noise ("Other"). Don't let the model invent a narrative from that;
+    // say so plainly instead.
+    const hasRealSignals = breakdown.length > 0;
+
     const outreachRaw = await Promise.all(
       topSignals.map(async (signal, index) => {
         // Only ask for the company-level reasoning summary once (on the top
@@ -110,14 +115,16 @@ router.post('/run-pipeline', async (req, res) => {
           userProduct,
           companyName,
           contextSignals: classifiedSignals,
-          includeSummary: index === 0,
+          includeSummary: index === 0 && hasRealSignals,
         });
         return { signal, outreach, companySummary };
       })
     );
 
     const outreachResults = outreachRaw.map(({ signal, outreach }) => ({ signal, outreach }));
-    const companySummary = outreachRaw.find((r) => r.companySummary)?.companySummary || null;
+    const companySummary = hasRealSignals
+      ? outreachRaw.find((r) => r.companySummary)?.companySummary || null
+      : `No strong funding, hiring, or product-launch signals detected for ${companyName} in the current search window.`;
 
     console.log('✅ Outreach generated');
 
