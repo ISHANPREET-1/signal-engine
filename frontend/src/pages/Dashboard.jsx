@@ -16,6 +16,9 @@ export default function Dashboard() {
 
   const data = location.state?.pipelineResult;
 
+  const score = data?.score ?? 0;
+  const intentTier = score >= 70 ? "HIGH" : score >= 40 ? "MEDIUM" : "LOW";
+
   if (!data) {
 
     return (
@@ -72,6 +75,20 @@ export default function Dashboard() {
 
 </header>
 
+        {/* AI Reasoning Summary */}
+
+        {data.companySummary && (
+
+          <div className="summaryBanner">
+
+            <span className="summaryLabel">AI Analysis</span>
+
+            <p>{data.companySummary}</p>
+
+          </div>
+
+        )}
+
         {/* Overview */}
 
         <div className="overviewGrid">
@@ -95,10 +112,10 @@ export default function Dashboard() {
             </div>
 
             <div className="intentScore">
-              92
+              {score}
             </div>
 
-            <span>HIGH</span>
+            <span>{intentTier}</span>
 
           </div>
 
@@ -118,6 +135,30 @@ export default function Dashboard() {
           </div>
 
         </div>
+
+        {/* Score Breakdown */}
+
+        {data.breakdown && data.breakdown.length > 0 && (
+
+          <div className="breakdownRow">
+
+            <span className="breakdownRowLabel">Score Breakdown</span>
+
+            <div className="breakdownBadges">
+
+              {data.breakdown.map((item, index) => (
+
+                <span key={index} className="breakdownBadge">
+                  {item.signal} +{item.points}
+                </span>
+
+              ))}
+
+            </div>
+
+          </div>
+
+        )}
 
         <StatsCards
           signals={data.signals}

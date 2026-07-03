@@ -80,6 +80,104 @@
 
 }
 
+/* ================= AI SUMMARY ================= */
+
+.summaryBanner{
+
+    background:#171717;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-left:3px solid #7A1124;
+
+    border-radius:8px;
+
+    padding:20px 28px;
+
+    margin-bottom:32px;
+
+}
+
+.summaryLabel{
+
+    display:block;
+
+    color:#888888;
+
+    font-size:12px;
+
+    font-weight:600;
+
+    letter-spacing:.08em;
+
+    text-transform:uppercase;
+
+    margin-bottom:8px;
+
+}
+
+.summaryBanner p{
+
+    margin:0;
+
+    font-size:17px;
+
+    line-height:1.5;
+
+}
+
+/* ================= SCORE BREAKDOWN ================= */
+
+.breakdownRow{
+
+    display:flex;
+
+    align-items:center;
+
+    flex-wrap:wrap;
+
+    gap:12px;
+
+    margin-bottom:32px;
+
+}
+
+.breakdownRowLabel{
+
+    color:#888888;
+
+    font-size:13px;
+
+}
+
+.breakdownBadges{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:10px;
+
+}
+
+.breakdownBadge{
+
+    padding:6px 14px;
+
+    border-radius:999px;
+
+    border:1px solid #7A1124;
+
+    background:rgba(122,17,36,.15);
+
+    color:#ff8a8a;
+
+    font-size:13px;
+
+    font-weight:600;
+
+}
+
 /* ================= OVERVIEW ================= */
 
 .overviewGrid{
