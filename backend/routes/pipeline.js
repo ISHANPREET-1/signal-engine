@@ -8,6 +8,8 @@ const { findContact } = require('../services/hunterService');
 const { generateOutreach } = require('../services/groqService');
 const { pushToHubspot } = require('../services/hubspotService');
 const { sendSlackNotification } = require('../services/slackService');
+const { classifySignal } = require('../services/classificationService');
+const { calculateBuyingIntent } = require('../services/scoringService');
 const Run = require('../models/Run');
 
 // Test route
@@ -53,6 +55,15 @@ router.post('/run-pipeline', async (req, res) => {
       });
     }
 
+    // Step 1.5 — Classify signals and score buying intent
+    const classifiedSignals = allSignals.map((signal) => ({
+      ...signal,
+      category: classifySignal(signal),
+    }));
+
+    const { score, breakdown } = calculateBuyingIntent(classifiedSignals);
+    console.log(`✅ Buying intent score: ${score}`);
+
     // Step 2 — Find contact
     console.log('🔍 Finding contact...');
     const contact = await findContact(companyDomain) || {
@@ -65,14 +76,32 @@ router.post('/run-pipeline', async (req, res) => {
 
     // Step 3 — Generate outreach for top 3 signals
     console.log('✍️ Generating outreach...');
-    const topSignals = allSignals.slice(0, 3);
+    // Anchor outreach on real classified signals before falling back to
+    // "Other" ones — otherwise whichever noisy news article happened to be
+    // fetched first becomes the entire email/HubSpot/Slack payload.
+    const topSignals = [...classifiedSignals]
+      .sort((a, b) => (a.category === 'Other' ? 1 : 0) - (b.category === 'Other' ? 1 : 0))
+      .slice(0, 3);
 
-    const outreachResults = await Promise.all(
-      topSignals.map(async (signal) => {
-        const outreach = await generateOutreach(signal, contact, userProduct);
-        return { signal, outreach };
+    const outreachRaw = await Promise.all(
+      topSignals.map(async (signal, index) => {
+        // Only ask for the company-level reasoning summary once (on the top
+        // signal's call) instead of once per signal — same Groq round-trip
+        // count as before, just repurposing the first call's response.
+        const { outreach, companySummary } = await generateOutreach({
+          signal,
+          contact,
+          userProduct,
+          companyName,
+          contextSignals: classifiedSignals,
+          includeSummary: index === 0,
+        });
+        return { signal, outreach, companySummary };
       })
     );
+
+    const outreachResults = outreachRaw.map(({ signal, outreach }) => ({ signal, outreach }));
+    const companySummary = outreachRaw.find((r) => r.companySummary)?.companySummary || null;
 
     console.log('✅ Outreach generated');
 
@@ -98,9 +127,12 @@ router.post('/run-pipeline', async (req, res) => {
       companyName,
       companyDomain,
       userProduct,
-      signals: allSignals,
+      signals: classifiedSignals,
       contact,
       outreach: outreachResults,
+      score,
+      breakdown,
+      companySummary,
       hubspotContactId: hubspotResult.contactId,
       createdAt: new Date(),
     });
@@ -113,7 +145,10 @@ router.post('/run-pipeline', async (req, res) => {
       success: true,
       companyName,
       contact,
-      signals: allSignals,
+      signals: classifiedSignals,
+      score,
+      breakdown,
+      companySummary,
       outreach: outreachResults,
       hubspot: hubspotResult,
     });
