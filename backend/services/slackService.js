@@ -58,14 +58,14 @@ const sendSlackNotification = async (signal, contact, outreach) => {
           type: 'section',
           text: {
             type: 'mrkdwn',
-            text: `*✉️ Generated Email Subject:*\n${outreach.email.subject}`,
+            text: `*✉️ Generated Email Subject:*\n${outreach?.email?.subject || 'Not available (outreach generation failed)'}`,
           },
         },
         {
           type: 'section',
           text: {
             type: 'mrkdwn',
-            text: `*📝 Why This Matters:*\n${outreach.whyItMatters}`,
+            text: `*📝 Why This Matters:*\n${outreach?.whyItMatters || 'Not available (outreach generation failed)'}`,
           },
         },
         {
