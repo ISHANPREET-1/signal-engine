@@ -1,13 +1,6 @@
 import { useState } from "react";
 import "./SignalList.css";
 
-const TYPE_CONFIG = {
-  news: { label: "NEWS" },
-  funding: { label: "FUNDING" },
-  hiring: { label: "HIRING" },
-  competitor_pain: { label: "COMPETITOR PAIN" },
-};
-
 // Mirrors backend/services/scoringService.js's weights so the list order
 // matches the Score Breakdown shown above it. Display-only — scoring itself
 // still happens entirely on the backend.
@@ -74,9 +67,7 @@ export default function SignalList({ signals }) {
 
           {visibleSignals.map((signal, index) => {
 
-            const type =
-              TYPE_CONFIG[signal.signalType] ??
-              TYPE_CONFIG.news;
+            const badgeLabel = (signal.category || "Other").toUpperCase();
 
             return (
 
@@ -93,7 +84,7 @@ export default function SignalList({ signals }) {
                 <div className="signalTop">
 
                   <div className="signalBadge">
-                    {type.label}
+                    {badgeLabel}
                   </div>
 
                   <div className="signalDate">

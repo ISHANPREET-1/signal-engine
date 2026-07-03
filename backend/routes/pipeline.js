@@ -12,6 +12,20 @@ const { classifySignal } = require('../services/classificationService');
 const { calculateBuyingIntent } = require('../services/scoringService');
 const Run = require('../models/Run');
 
+// Users often paste a full marketing URL ("https://www.x.com/?utm_source=...")
+// into the domain field instead of a bare domain — reduce to just the hostname
+// so it stays usable for the Hunter.io lookup, the fallback email, and display.
+const normalizeDomain = (input) => {
+  if (!input) return input;
+  const trimmed = input.trim();
+  try {
+    const withProtocol = /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
+    return new URL(withProtocol).hostname.replace(/^www\./i, '').toLowerCase();
+  } catch {
+    return trimmed.toLowerCase();
+  }
+};
+
 // Test route
 router.get('/test', (req, res) => {
   res.json({ message: 'Pipeline route is working 🚀' });
@@ -19,13 +33,15 @@ router.get('/test', (req, res) => {
 
 // Main pipeline route
 router.post('/run-pipeline', async (req, res) => {
-  const { companyName, companyDomain, userProduct } = req.body;
+  const { companyName, companyDomain: rawCompanyDomain, userProduct } = req.body;
 
-  if (!companyName || !companyDomain || !userProduct) {
+  if (!companyName || !rawCompanyDomain || !userProduct) {
     return res.status(400).json({
       error: 'companyName, companyDomain and userProduct are required',
     });
   }
+
+  const companyDomain = normalizeDomain(rawCompanyDomain);
 
   try {
     console.log(`\n🚀 Running pipeline for: ${companyName}`);

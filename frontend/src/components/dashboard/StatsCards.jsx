@@ -7,41 +7,24 @@ export default function StatsCards({ signals }) {
 
   if (!signals) return null;
 
-  const counts = {
-    news: 0,
-    funding: 0,
-    hiring: 0,
-    competitor_pain: 0,
-  };
+  // Count by the classified category (the same field calculateBuyingIntent()
+  // scores from) so these cards can never show a category as present that
+  // the score didn't actually credit.
+  const counts = {};
 
   signals.forEach((signal) => {
-    if (counts[signal.signalType] !== undefined) {
-      counts[signal.signalType]++;
-    }
+    const category = signal.category || "Other";
+    counts[category] = (counts[category] || 0) + 1;
   });
 
-  const cards = [
-    {
-      label: "News",
-      value: counts.news,
-      accent: "news",
-    },
-    {
-      label: "Funding",
-      value: counts.funding,
-      accent: "funding",
-    },
-    {
-      label: "Hiring",
-      value: counts.hiring,
-      accent: "hiring",
-    },
-    {
-      label: "Competitor Pain",
-      value: counts.competitor_pain,
-      accent: "competitor_pain",
-    },
-  ];
+  const cards = Object.entries(counts)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 4)
+    .map(([category, value]) => ({
+      label: category,
+      value,
+      accent: category,
+    }));
 
   return (
     <div className="statsGrid">
