@@ -186,6 +186,7 @@ export default function Dashboard() {
 
             <OutreachPanel
               outreach={data.outreach?.[0]?.outreach}
+              hasRealSignals={data.breakdown && data.breakdown.length > 0}
             />
 
           </div>

@@ -104,22 +104,28 @@ router.post('/run-pipeline', async (req, res) => {
     // say so plainly instead.
     const hasRealSignals = breakdown.length > 0;
 
-    const outreachRaw = await Promise.all(
-      topSignals.map(async (signal, index) => {
-        // Only ask for the company-level reasoning summary once (on the top
-        // signal's call) instead of once per signal — same Groq round-trip
-        // count as before, just repurposing the first call's response.
-        const { outreach, companySummary } = await generateOutreach({
-          signal,
-          contact,
-          userProduct,
-          companyName,
-          contextSignals: classifiedSignals,
-          includeSummary: index === 0 && hasRealSignals,
-        });
-        return { signal, outreach, companySummary };
-      })
-    );
+    // No classified category scored anything — every fetched signal is noise
+    // ("Other"). Skip the Groq call entirely rather than let the model
+    // fabricate a personalized email anchored on an irrelevant article.
+    const outreachRaw = hasRealSignals
+      ? await Promise.all(
+          topSignals.map(async (signal, index) => {
+            // Only ask for the company-level reasoning summary once (on the
+            // top signal's call) instead of once per signal — same Groq
+            // round-trip count as before, just repurposing the first call's
+            // response.
+            const { outreach, companySummary } = await generateOutreach({
+              signal,
+              contact,
+              userProduct,
+              companyName,
+              contextSignals: classifiedSignals,
+              includeSummary: index === 0,
+            });
+            return { signal, outreach, companySummary };
+          })
+        )
+      : topSignals.map((signal) => ({ signal, outreach: null, companySummary: null }));
 
     const outreachResults = outreachRaw.map(({ signal, outreach }) => ({ signal, outreach }));
     const companySummary = hasRealSignals
