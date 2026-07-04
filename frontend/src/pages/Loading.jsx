@@ -49,7 +49,11 @@ export default function Loading() {
       } catch (err) {
         clearInterval(interval);
         console.error(err);
-        alert("Pipeline failed.");
+        const message =
+          err.message === "No signals found for this company"
+            ? `No strong buying signals found for ${formData.companyName} in the last 30 days — try a different company or check back later.`
+            : err.message || "Pipeline failed.";
+        alert(message);
         navigate("/setup");
       }
     };
