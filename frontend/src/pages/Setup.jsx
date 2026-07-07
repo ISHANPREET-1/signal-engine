@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Setup.module.css";
-import { runPipeline, runBatchPipeline, runPlg } from "../services/api";
+import { runPipeline, runBatchPipeline } from "../services/api";
 import SignalEngineBackground from "../components/background/SignalEngineBackground";
 import SignalEngineLogo from "../components/logo/SignalEngineLogo";
 
@@ -41,7 +41,7 @@ export default function Setup() {
     }));
   };
 
-  const handlePlgSubmit = async (e) => {
+  const handlePlgSubmit = (e) => {
     e.preventDefault();
 
     if (!plgData.userName && !plgData.userEmail) {
@@ -49,21 +49,11 @@ export default function Setup() {
       return;
     }
 
-    try {
-      setLoading(true);
-
-      const result = await runPlg(plgData);
-
-      navigate("/plg-results", {
-        state: {
-          plgResult: result,
-        },
-      });
-    } catch (err) {
-      console.error(err);
-      alert(err.message || "PLG scoring failed.");
-      setLoading(false);
-    }
+    navigate("/plg-loading", {
+      state: {
+        plgData,
+      },
+    });
   };
 
   const handleChange = (e) => {
