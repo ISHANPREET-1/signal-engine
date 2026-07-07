@@ -4,6 +4,7 @@ const cors = require('cors');
 require('dotenv').config();
 
 const pipelineRoutes = require('./routes/pipeline');
+const plgRoutes = require('./routes/plg');
 
 const app = express();
 
@@ -13,6 +14,7 @@ app.use(express.json());
 
 // Routes
 app.use('/api', pipelineRoutes);
+app.use('/api', plgRoutes);
 
 // Health check
 app.get('/', (req, res) => {

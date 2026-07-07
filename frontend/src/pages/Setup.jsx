@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Setup.module.css";
-import { runPipeline, runBatchPipeline } from "../services/api";
+import { runPipeline, runBatchPipeline, runPlg } from "../services/api";
 import SignalEngineBackground from "../components/background/SignalEngineBackground";
 import SignalEngineLogo from "../components/logo/SignalEngineLogo";
 
@@ -20,6 +20,51 @@ export default function Setup() {
   // submit behavior below completely unchanged.
   const [mode, setMode] = useState("single");
   const [batchText, setBatchText] = useState("");
+
+  // Top-level flow: "outbound" is the existing company-research path (single +
+  // batch), untouched. "plg" is the separate product-qualified-lead prototype.
+  const [flow, setFlow] = useState("outbound");
+  const [plgData, setPlgData] = useState({
+    userName: "",
+    userEmail: "",
+    companyName: "",
+    visualsCreated: "",
+    teammatesInvited: "",
+    freeTierLimitHits: "",
+    daysActive: "",
+  });
+
+  const handlePlgChange = (e) => {
+    setPlgData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handlePlgSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!plgData.userName && !plgData.userEmail) {
+      alert("Enter a user name or email.");
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      const result = await runPlg(plgData);
+
+      navigate("/plg-results", {
+        state: {
+          plgResult: result,
+        },
+      });
+    } catch (err) {
+      console.error(err);
+      alert(err.message || "PLG scoring failed.");
+      setLoading(false);
+    }
+  };
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -150,6 +195,30 @@ export default function Setup() {
 
             <button
               type="button"
+              className={flow === "outbound" ? styles.modeActive : ""}
+              onClick={() => setFlow("outbound")}
+            >
+              Outbound Research
+            </button>
+
+            <button
+              type="button"
+              className={flow === "plg" ? styles.modeActive : ""}
+              onClick={() => setFlow("plg")}
+            >
+              PLG Mode
+            </button>
+
+          </div>
+
+          {flow === "outbound" ? (
+
+          <>
+
+          <div className={styles.modeToggle}>
+
+            <button
+              type="button"
               className={mode === "single" ? styles.modeActive : ""}
               onClick={() => setMode("single")}
             >
@@ -244,6 +313,102 @@ export default function Setup() {
             </span>
 
           </form>
+
+          </>
+
+          ) : (
+
+          <form onSubmit={handlePlgSubmit}>
+
+            <label>User Name</label>
+
+            <input
+              type="text"
+              name="userName"
+              placeholder="Dana Lee"
+              value={plgData.userName}
+              onChange={handlePlgChange}
+            />
+
+            <label>User Email</label>
+
+            <input
+              type="text"
+              name="userEmail"
+              placeholder="dana@acme.com"
+              value={plgData.userEmail}
+              onChange={handlePlgChange}
+            />
+
+            <label>Company Name</label>
+
+            <input
+              type="text"
+              name="companyName"
+              placeholder="Acme Inc"
+              value={plgData.companyName}
+              onChange={handlePlgChange}
+            />
+
+            <label>Visuals / actions created</label>
+
+            <input
+              type="number"
+              min="0"
+              name="visualsCreated"
+              placeholder="30"
+              value={plgData.visualsCreated}
+              onChange={handlePlgChange}
+            />
+
+            <label>Teammates invited</label>
+
+            <input
+              type="number"
+              min="0"
+              name="teammatesInvited"
+              placeholder="3"
+              value={plgData.teammatesInvited}
+              onChange={handlePlgChange}
+            />
+
+            <label>Times hit free-tier limit</label>
+
+            <input
+              type="number"
+              min="0"
+              name="freeTierLimitHits"
+              placeholder="3"
+              value={plgData.freeTierLimitHits}
+              onChange={handlePlgChange}
+            />
+
+            <label>Days active (last 30)</label>
+
+            <input
+              type="number"
+              min="0"
+              max="30"
+              name="daysActive"
+              placeholder="20"
+              value={plgData.daysActive}
+              onChange={handlePlgChange}
+            />
+
+            <button
+              type="submit"
+              disabled={loading}
+            >
+              {loading ? "Scoring..." : "Score PQL"}
+            </button>
+
+            <span className={styles.runtime}>
+              Prototype • scores a simulated sign-up from usage behavior
+            </span>
+
+          </form>
+
+          )}
 
         </div>
 

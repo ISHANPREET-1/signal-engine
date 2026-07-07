@@ -1,0 +1,135 @@
+/* PLG-specific additions layered on top of the shared Dashboard.css classes. */
+
+.plgNoSignal{
+
+    color:#888888;
+
+    font-size:14px;
+
+}
+
+.plgUsageGrid{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:20px;
+
+    margin-bottom:40px;
+
+}
+
+.plgUsageCell{
+
+    background:#171717;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:8px;
+
+    padding:24px 28px;
+
+    text-align:center;
+
+    transition:.25s;
+
+}
+
+.plgUsageCell:hover{
+
+    transform:translateY(-2px);
+
+    border-color:#7A1124;
+
+}
+
+.plgUsageValue{
+
+    font-size:36px;
+
+    font-weight:700;
+
+    margin-bottom:6px;
+
+}
+
+.plgUsageLabel{
+
+    color:#888888;
+
+    font-size:13px;
+
+}
+
+.plgFactorList{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:14px;
+
+}
+
+.plgFactorRow{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:24px;
+
+    background:#171717;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-left:3px solid #7A1124;
+
+    border-radius:8px;
+
+    padding:20px 28px;
+
+}
+
+.plgFactorMain h3{
+
+    margin:0 0 4px;
+
+    font-size:18px;
+
+}
+
+.plgFactorMain p{
+
+    margin:0;
+
+    color:#888888;
+
+    font-size:14px;
+
+}
+
+.plgFactorPoints{
+
+    font-size:24px;
+
+    font-weight:700;
+
+    color:#ff8a8a;
+
+    white-space:nowrap;
+
+}
+
+@media(max-width:900px){
+
+    .plgUsageGrid{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+}
