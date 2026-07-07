@@ -20,10 +20,11 @@ export default function BatchResults() {
     );
   }
 
-  // Highest score first; failed entries (no score to rank by) sort last.
+  // Highest score first, then clean "no signals" runs, then genuine failures.
+  const statusRank = { ok: 0, no_signals: 1, failed: 2 };
   const ranked = [...results].sort((a, b) => {
-    if (a.status === "ok" && b.status !== "ok") return -1;
-    if (a.status !== "ok" && b.status === "ok") return 1;
+    const diff = statusRank[a.status] - statusRank[b.status];
+    if (diff !== 0) return diff;
     return (b.score ?? -1) - (a.score ?? -1);
   });
 
@@ -62,11 +63,17 @@ export default function BatchResults() {
             const clickable = row.status === "ok";
             const tier =
               row.score >= 70 ? "HIGH" : row.score >= 40 ? "MEDIUM" : "LOW";
+            const rowClass =
+              row.status === "ok"
+                ? "clickable"
+                : row.status === "no_signals"
+                ? "noSignalsRow"
+                : "failedRow";
 
             return (
               <article
                 key={`${row.companyDomain}-${index}`}
-                className={`batchRow ${clickable ? "clickable" : "failedRow"}`}
+                className={`batchRow ${rowClass}`}
                 onClick={() => handleRowClick(row)}
               >
                 <div className="batchRank">#{index + 1}</div>
@@ -77,19 +84,21 @@ export default function BatchResults() {
                 </div>
 
                 <div className="batchSummary">
-                  {clickable
+                  {row.status === "ok"
                     ? row.companySummary || "No summary available."
-                    : `No data — ${row.error || "pipeline failed for this company"}`}
+                    : row.error}
                 </div>
 
                 <div className="batchScore">
-                  {clickable ? (
+                  {row.status === "ok" ? (
                     <>
                       <div className="scoreValue">{row.score}</div>
                       <span className={`tierBadge tier${tier}`}>{tier}</span>
                     </>
+                  ) : row.status === "no_signals" ? (
+                    <span className="tierBadge tierNone">NO SIGNALS</span>
                   ) : (
-                    <span className="tierBadge tierNone">NO DATA</span>
+                    <span className="tierBadge tierFailed">FAILED</span>
                   )}
                 </div>
               </article>

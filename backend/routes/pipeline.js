@@ -16,7 +16,7 @@ const Run = require('../models/Run');
 // into the domain field instead of a bare domain — reduce to just the hostname
 // so it stays usable for the Hunter.io lookup, the fallback email, and display.
 const normalizeDomain = (input) => {
-  if (!input) return input;
+  if (!input || typeof input !== 'string') return input;
   const trimmed = input.trim();
   try {
     const withProtocol = /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
@@ -262,13 +262,21 @@ router.post('/run-pipeline-batch', async (req, res) => {
     } catch (error) {
       console.error(`❌ Batch item failed (${company.companyName}):`, error.message);
 
+      // A 404 here means the pipeline ran fine and just found nothing worth
+      // scoring this period — that's a legitimately "clean" result, not a
+      // failure, and shouldn't look broken next to a company that genuinely
+      // errored (bad domain, API/exception failure).
+      const isNoSignals = error.statusCode === 404;
+
       results.push({
         companyName: company.companyName,
         companyDomain: normalizeDomain(company.companyDomain),
-        status: 'failed',
+        status: isNoSignals ? 'no_signals' : 'failed',
         score: null,
         companySummary: null,
-        error: error.message || 'Pipeline failed for this company',
+        error: isNoSignals
+          ? 'Ran successfully — no strong signals found this period.'
+          : error.message || 'Pipeline failed for this company',
         data: null,
       });
     }

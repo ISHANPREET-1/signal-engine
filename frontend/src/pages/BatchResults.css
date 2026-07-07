@@ -134,9 +134,17 @@
 
 }
 
-.batchRow.failedRow{
+.batchRow.noSignalsRow{
 
     opacity:.6;
+
+}
+
+.batchRow.failedRow{
+
+    opacity:.85;
+
+    border-color:rgba(220,53,69,.35);
 
 }
 
@@ -225,6 +233,16 @@
     background:rgba(255,255,255,.05);
 
     color:#888888;
+
+}
+
+.tierFailed{
+
+    border-color:rgba(220,53,69,.5);
+
+    background:rgba(220,53,69,.15);
+
+    color:#ff6b6b;
 
 }
 
