@@ -1,0 +1,269 @@
+.batchResults{
+
+    position:relative;
+
+    z-index:2;
+
+    width:min(1200px,100%);
+
+    margin:auto;
+
+    padding:48px 64px 64px;
+
+    min-height:100vh;
+
+    color:white;
+
+}
+
+.hero{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-start;
+
+    margin-bottom:48px;
+
+}
+
+.hero h1{
+
+    margin:0 0 8px;
+
+    font-size:40px;
+
+    font-weight:700;
+
+    letter-spacing:-.03em;
+
+}
+
+.hero p{
+
+    margin:0;
+
+    color:#888888;
+
+    font-size:16px;
+
+}
+
+.heroTitle{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+}
+
+.primaryBtn{
+
+    background:#7A1124;
+
+    color:white;
+
+    border:none;
+
+    border-radius:8px;
+
+    padding:14px 28px;
+
+    cursor:pointer;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    transition:.25s;
+
+}
+
+.primaryBtn:hover{
+
+    background:#9B1730;
+
+}
+
+.batchList{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:16px;
+
+}
+
+.batchRow{
+
+    display:grid;
+
+    grid-template-columns:60px 1fr 2fr 120px;
+
+    align-items:center;
+
+    gap:24px;
+
+    background:#171717;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:8px;
+
+    padding:24px 28px;
+
+    transition:.25s;
+
+}
+
+.batchRow.clickable{
+
+    cursor:pointer;
+
+}
+
+.batchRow.clickable:hover{
+
+    transform:translateY(-2px);
+
+    border-color:#7A1124;
+
+}
+
+.batchRow.failedRow{
+
+    opacity:.6;
+
+}
+
+.batchRank{
+
+    color:#888888;
+
+    font-size:20px;
+
+    font-weight:700;
+
+}
+
+.batchCompany h3{
+
+    margin:0 0 4px;
+
+    font-size:20px;
+
+}
+
+.batchCompany p{
+
+    margin:0;
+
+    color:#888888;
+
+    font-size:14px;
+
+}
+
+.batchSummary{
+
+    color:#CFCFCF;
+
+    font-size:14px;
+
+    line-height:1.5;
+
+}
+
+.batchScore{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:flex-end;
+
+    gap:6px;
+
+}
+
+.scoreValue{
+
+    font-size:28px;
+
+    font-weight:700;
+
+}
+
+.tierBadge{
+
+    padding:6px 14px;
+
+    border-radius:999px;
+
+    border:1px solid #7A1124;
+
+    background:rgba(122,17,36,.15);
+
+    color:#ff8a8a;
+
+    font-size:12px;
+
+    font-weight:600;
+
+    white-space:nowrap;
+
+}
+
+.tierNone{
+
+    border-color:rgba(255,255,255,.15);
+
+    background:rgba(255,255,255,.05);
+
+    color:#888888;
+
+}
+
+.batchEmpty{
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    flex-direction:column;
+
+    gap:24px;
+
+    color:white;
+
+}
+
+@media(max-width:900px){
+
+    .batchRow{
+
+        grid-template-columns:1fr;
+
+        gap:12px;
+
+    }
+
+    .batchScore{
+
+        align-items:flex-start;
+
+        flex-direction:row;
+
+        gap:12px;
+
+    }
+
+}
