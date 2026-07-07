@@ -1,0 +1,58 @@
+.intentTrend {
+
+    display:flex;
+
+    align-items:center;
+
+    gap:6px;
+
+    margin-top:12px;
+
+    font-size:12px;
+
+    color:#888888;
+
+}
+
+/* .intentCard span already carries pill styling (border/bg/padding) for the
+   HIGH/MEDIUM/LOW tier badge. Reset it here at equal-or-higher specificity
+   so the trend line renders as plain text regardless of CSS import order. */
+.intentCard .intentTrend span {
+
+    width:auto;
+
+    padding:0;
+
+    border:none;
+
+    border-radius:0;
+
+    background:none;
+
+    color:inherit;
+
+}
+
+.intentTrendArrow {
+
+    font-size:11px;
+
+}
+
+.intentCard .intentTrend-up .intentTrendArrow {
+
+    color:#4ade80;
+
+}
+
+.intentCard .intentTrend-down .intentTrendArrow {
+
+    color:#ff8a8a;
+
+}
+
+.intentCard .intentTrend-flat .intentTrendArrow {
+
+    color:#888888;
+
+}

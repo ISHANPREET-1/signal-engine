@@ -150,6 +150,18 @@ router.post('/run-pipeline', async (req, res) => {
       outreachResults[0].outreach
     );
 
+    // Step 5.5 — Fetch this company's prior runs for a trend comparison.
+    // Read-only, queried before this run is saved so it naturally excludes it.
+    console.log('📈 Fetching run history...');
+    const previousRuns = await Run.find({ companyDomain })
+      .sort({ createdAt: -1 })
+      .limit(10)
+      .select('score createdAt')
+      .lean();
+    const history = previousRuns
+      .reverse() // oldest → newest, for chronological display
+      .map((run) => ({ date: run.createdAt, score: run.score }));
+
     // Step 6 — Save run to MongoDB
     console.log('💾 Saving to MongoDB...');
     const run = new Run({
@@ -180,6 +192,7 @@ router.post('/run-pipeline', async (req, res) => {
       companySummary,
       outreach: outreachResults,
       hubspot: hubspotResult,
+      history,
     });
   } catch (error) {
     console.error('❌ Pipeline error:', error.message);

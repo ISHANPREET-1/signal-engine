@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import SignalEngineLogo from "../components/logo/SignalEngineLogo";
 import StatsCards from "../components/dashboard/StatsCards";
+import IntentTrend from "../components/dashboard/IntentTrend";
 import SignalTimeline from "../components/dashboard/SignalTimeline";
 import SignalList from "../components/dashboard/SignalList";
 import OutreachPanel from "../components/dashboard/OutreachPanel";
@@ -116,6 +117,8 @@ export default function Dashboard() {
             </div>
 
             <span>{intentTier}</span>
+
+            <IntentTrend history={data.history} currentScore={score} />
 
           </div>
 
