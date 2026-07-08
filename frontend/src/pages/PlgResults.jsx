@@ -39,7 +39,7 @@ export default function PlgResults() {
     <>
       <SignalEngineBackground />
 
-      <main className="dashboard">
+      <main className="dashboard plgResults">
 
         <header className="hero">
 

@@ -136,7 +136,7 @@
 
 .batchRow.noSignalsRow{
 
-    opacity:.6;
+    opacity:.85;
 
 }
 
@@ -228,11 +228,11 @@
 
 .tierNone{
 
-    border-color:rgba(255,255,255,.15);
+    border-color:rgba(255,255,255,.2);
 
     background:rgba(255,255,255,.05);
 
-    color:#888888;
+    color:#B0B0B0;
 
 }
 
