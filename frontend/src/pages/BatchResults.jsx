@@ -60,7 +60,6 @@ export default function BatchResults() {
         <div className="batchList">
 
           {ranked.map((row, index) => {
-            const clickable = row.status === "ok";
             const tier =
               row.score >= 70 ? "HIGH" : row.score >= 40 ? "MEDIUM" : "LOW";
             const rowClass =
